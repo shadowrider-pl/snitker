@@ -20,7 +20,7 @@ public class TestStary {
 		TablicaLosowana tabela = new TablicaLosowana();
 		tabela.zapelnij_tablice(zakres);		
 		
-		for (int element : tabela.dane) {
+		for (double element : tabela.dane) {
 			System.out.println("Pole z Testu " + element);
 
 		}

@@ -6,11 +6,8 @@ public class OdchylenieStandardowe implements InterfZaokraglijDo2Miejsc {
 
 	double odchylenie_zaokr = 0;
 
-	public void setOdchylenie_zaokr(double odchylenie_zaokr) {
-		this.odchylenie_zaokr = odchylenie_zaokr;
-	}
 
-	public double wylicz_odchylenie(double srednia, int[] dane) {
+	public double wylicz_odchylenie(double srednia, double[] dane) {
 		double odchylenie = 0;
 		double roznica = 0;
 		int rozmiar = dane.length;

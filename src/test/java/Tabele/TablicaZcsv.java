@@ -17,8 +17,9 @@ import java.util.ArrayList;
  */
 public class TablicaZcsv {
 
-	public int[] dane;
-	public ArrayList<String> daneAL = new ArrayList<String>();
+	public double [] dane;
+	public ArrayList<String> daneAL = new ArrayList<String>(); 
+// Nie może być ArrayList<Double> bo line = br.readLine() czyta Stringi
 	private static int wiersz;
 	private static String dane_str[];
 
@@ -33,18 +34,12 @@ public class TablicaZcsv {
 
 	public void czytaj() {
 
-		// String csvFile =
-		// "/home/norbert/java/snitker/src/test/java/Tabele/punkty_lojalnościowe.csv";
-		String csvFile = Okna.Okno.plik;
+		 String csvFile =
+		 "/home/norbert/java/snitker/src/test/java/Tabele/punkty_lojalnościowe.csv";
+//		String csvFile = Okna.Okno.plik;
 		BufferedReader br = null;
 		String line = "";
 
-//		System.out.println("Rozmiar daneAL: " + daneAL.size());
-//		if (!daneAL.isEmpty()) {
-//			daneAL.clear();
-//			dane = null;
-//			dane_str = null;
-//		}
 
 		try {
 			wiersz = 0;
@@ -55,16 +50,16 @@ public class TablicaZcsv {
 				// daneAL.get(wiersz) + "]");
 				wiersz++;
 			}
-			System.out.println("Rozmiar daneAL: " + daneAL.size());
+//			System.out.println("Rozmiar daneAL: " + daneAL.size());
 
 			dane_str = new String[wiersz];
 			dane_str = daneAL.toArray(dane_str);
 
-			dane = new int[wiersz];
+			dane = new double [wiersz];
 
-			System.out.println("Rozmiar dane: " + dane.length);
+//			System.out.println("Rozmiar dane: " + dane.length);
 			for (int i = 0; i < wiersz; i++) {
-				dane[i] = Integer.parseInt(dane_str[i]);
+				dane[i] = Double.parseDouble(dane_str[i]);
 			}
 
 		} catch (FileNotFoundException e) {
@@ -80,6 +75,10 @@ public class TablicaZcsv {
 				}
 			}
 		}
+	}
+
+	public ArrayList<String> getDaneAL() {
+		return daneAL;
 	}
 
 	public static String[] getDane_str() {

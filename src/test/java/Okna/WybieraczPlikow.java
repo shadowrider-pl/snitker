@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class WybieraczPlikow {
 
 	public String nazwa_pliku = "";
+	public String nazwa_pliku_bez_sciezki = "";
 
 	public void WybieraczPlikow(Okno parent) {
 		JFileChooser fileChooser = new JFileChooser();
@@ -31,7 +32,12 @@ public class WybieraczPlikow {
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fileChooser.getSelectedFile();
 			nazwa_pliku = selectedFile.getAbsolutePath();
+			nazwa_pliku_bez_sciezki = selectedFile.getName();
 		}
+	}
+
+	public String getNazwa_pliku_bez_sciezki() {
+		return nazwa_pliku_bez_sciezki;
 	}
 
 	public String getNazwa_pliku() {

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class TablicaLosowana {
 	public static int rozmiar_tablicy = 37;
-	public static int dane[] =new int[rozmiar_tablicy]; //trzeba zadeklarować tablicę z rozmiarem
+	public static double dane[] =new double[rozmiar_tablicy]; //trzeba zadeklarować tablicę z rozmiarem
 //	private static int zakres = 10;
 
 	public void zapelnij_tablice(int zakres){
