@@ -6,8 +6,8 @@
 package Okna;
 
 import java.io.File;
+
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -24,10 +24,12 @@ public class WybieraczPlikow {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Pliki CSV", "csv"));
-		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Pliki tekstowe", "txt"));
-		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("MS Office", "xlsx"));
-		fileChooser.setAcceptAllFileFilterUsed(true);
+		FileNameExtensionFilter domyslny=new FileNameExtensionFilter("Pliki CSV", "csv");
+//		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Pliki CSV", "csv"));
+//		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Pliki tekstowe", "txt"));
+//		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("MS Office", "xlsx"));
+//		fileChooser.setAcceptAllFileFilterUsed(true);
+		fileChooser.setFileFilter(domyslny);
 		int result = fileChooser.showOpenDialog(parent);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fileChooser.getSelectedFile();

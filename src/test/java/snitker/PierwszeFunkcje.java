@@ -11,6 +11,7 @@ import Funkcje.Srednia;
 import Funkcje.Wariancja;
 import Funkcje.ZaokrDo2Miejsc;
 import Okna.Histogram;
+import Okna.HistogramPrzedzialowy;
 //import Tabele.TablicaLosowana;
 import Tabele.TablicaZcsv;
 
@@ -69,6 +70,7 @@ public class PierwszeFunkcje {
 				+ mediana + "<BR>" + "Dominanta: " + dominanta + "<BR>" + "Minimum: " + minimum + "<BR>" + "Maximum: "
 				+ maximum + "<BR>" + "Kurtoza: " + kurtoza + "<BR>" + "Liczba rekordów: " + liczba_obserwacji + "<BR>" + "</html>";
 
+		HistogramPrzedzialowy histp = new HistogramPrzedzialowy();
 		Histogram hist = new Histogram();
 		
 	}
