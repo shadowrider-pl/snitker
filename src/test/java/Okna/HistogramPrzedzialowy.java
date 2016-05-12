@@ -29,6 +29,8 @@ public class HistogramPrzedzialowy extends javax.swing.JFrame {
 	// private ArrayList<Rectangle2D> arrHist = new
 	// ArrayList<Rectangle2D>();
 
+	JFrame frame = new Rysuj();
+
 	public HistogramPrzedzialowy() {
 		initComponents();
 	}
@@ -56,14 +58,10 @@ public class HistogramPrzedzialowy extends javax.swing.JFrame {
 			}
 		}
 
-		JFrame frame = new Rysuj();
 		frame.setTitle("Histogram przedziałowy");
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frame.setVisible(true);
+		frame.setVisible(false);
 
-//		for (int lll : przedzialy) {
-//			System.out.println(lll);
-//		}
 	}
 
 	public static void main(String[] args) {

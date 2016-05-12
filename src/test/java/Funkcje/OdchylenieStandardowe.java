@@ -7,12 +7,12 @@ public class OdchylenieStandardowe implements InterfZaokraglijDo2Miejsc {
 	double odchylenie_zaokr = 0;
 
 
-	public double wylicz_odchylenie(double srednia, double[] dane) {
+	public double wylicz_odchylenie(double srednia, double[][] dane, int kolumna) {
 		double odchylenie = 0;
 		double roznica = 0;
 		int rozmiar = dane.length;
 		for (int i = 0; i < rozmiar; i++) {
-			roznica = pow((dane[i] - srednia), 2);
+			roznica = pow((dane[i][kolumna] - srednia), 2);
 
 			// System.out.println("Suma="+suma+", dane="+dane[i]);
 		}

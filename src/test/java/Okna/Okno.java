@@ -36,7 +36,6 @@ public class Okno extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -50,9 +49,6 @@ public class Okno extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Snitker");
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Działaj!!!");
-
         jButton1.setText("Otwórz plik...");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,7 +56,12 @@ public class Okno extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Analiza");
+        jButton2.setText("Statystyki opisowe");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,15 +70,12 @@ public class Okno extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(204, 204, 204)
+                        .addGap(198, 198, 198)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(225, 225, 225)
+                        .addGap(181, 181, 181)
                         .addComponent(jButton2)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(205, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,9 +84,7 @@ public class Okno extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Plik");
@@ -158,15 +154,28 @@ public class Okno extends javax.swing.JFrame {
         wybierz.WybieraczPlikow(this);
         plik = wybierz.getNazwa_pliku();
         plik_bez_sciezki = wybierz.getNazwa_pliku_bez_sciezki();
-        jLabel1.setText("Wczytano: " + plik);
+//        jLabel1.setText("Wczytano: " + plik);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         if (plik != null) {
+			PierwszeFunkcje pfunkcje = new PierwszeFunkcje();
+			String tytul[]=pfunkcje.tytul;
+			
+            WynikiOpisowe wyn_opis = new WynikiOpisowe();
+            wyn_opis.ustawjLabel1(plik_bez_sciezki);
+            wyn_opis.ustawjEditorPane1(pfunkcje.getWynik1());
+            wyn_opis.przyciski(tytul);
+            wyn_opis.setVisible(true);
+                   }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem1ActionPerformed
         WybieraczPlikow wybierz = new WybieraczPlikow();
         wybierz.WybieraczPlikow(this);
         plik = wybierz.getNazwa_pliku();
         plik_bez_sciezki = wybierz.getNazwa_pliku_bez_sciezki();
-        jLabel1.setText("Wczytano: " + plik);
+//        jLabel1.setText("Wczytano: " + plik);
     }// GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -174,19 +183,17 @@ public class Okno extends javax.swing.JFrame {
 			PierwszeFunkcje pfunkcje = new PierwszeFunkcje();
 //			jLabel1.setText(pfunkcje.getWynik1());
 			
-            WynikiOpisowe wyn_opis = new WynikiOpisowe();
+            WynikiOpisowe1 wyn_opis = new WynikiOpisowe1();
             wyn_opis.ustawjLabel1(plik_bez_sciezki);
             wyn_opis.ustawjEditorPane1(pfunkcje.getWynik1());
             wyn_opis.setVisible(true);
-            
-            
-        }
+                   }
     }// GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem4ActionPerformed
 
         PierwszeFunkcje pfunkcje = new PierwszeFunkcje();
-        jLabel1.setText(pfunkcje.getWynik1());
+//        jLabel1.setText(pfunkcje.getWynik1());
 
     }// GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -240,7 +247,6 @@ public class Okno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

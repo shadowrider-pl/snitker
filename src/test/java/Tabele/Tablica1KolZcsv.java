@@ -10,31 +10,29 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
  * @author norbert
  */
-public class TablicaZcsv {
+public class Tablica1KolZcsv {
 
-	public double[][] dane;
-	public ArrayList<ArrayList<String>> daneAL = new ArrayList<ArrayList<String>>();
+	public double[] dane;
+	public ArrayList<String> daneAL = new ArrayList<String>();
 	// Nie może być ArrayList<Double> bo line = br.readLine() czyta Stringi
 	private static int wiersz;
-	private static String dane_str[][];
+	private static String dane_str[];
 	private String line = "";
-	public ArrayList<String> tytulAL;
+	public String tytul;
 	private BufferedReader br = null;
-	private String csvFile;
-	private ArrayList<String> wierszCSV;
-	private String separatorCSV=",";
-	public int iloscKolumn;
-	public String[] tytuly;
-	public String[] daneWiersz;
+	String csvFile;
 
+	public void pobierz_naglowki(){
+
+		csvFile = Okna.Okno.plik;
+	}
 	// public static void main(String[] args) {
-	public TablicaZcsv() {
+	public Tablica1KolZcsv() {
 
 		czytaj();
 
@@ -54,25 +52,21 @@ public class TablicaZcsv {
 			wiersz = 0;
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
-				wierszCSV = new  ArrayList<String>(Arrays.asList(line.split(separatorCSV)));
-				daneAL.add(wierszCSV);
+				daneAL.add(line);
+				// System.out.println("Wiersz: " + wiersz + " Punkty: [" +
+				// daneAL.get(wiersz) + "]");
 				wiersz++;
 			}
-			
-			tytulAL= daneAL.get(0);
-			iloscKolumn=tytulAL.size();			
-			tytuly=	 tytulAL.toArray(new String[iloscKolumn]);
+			// System.out.println("Rozmiar daneAL: " + daneAL.size());
+			dane_str = new String[wiersz];
+			dane_str = daneAL.toArray(dane_str);
 
-			dane_str = new String[wiersz][iloscKolumn];
-			
-			dane = new double[wiersz][iloscKolumn];
+			tytul= dane_str[0];
+			dane = new double[wiersz];
 
+			// System.out.println("Rozmiar dane: " + dane.length);
 			for (int i = 1; i < wiersz; i++) { //w zerowym wierszu tytuł
-				daneWiersz=daneAL.get(i).toArray(new String[iloscKolumn]);
-				for(int j=0;j<iloscKolumn;j++){
-					dane[i][j] = Double.parseDouble(daneWiersz[j]);	
-					
-				}
+				dane[i] = Double.parseDouble(dane_str[i]);
 			}
 
 		} catch (FileNotFoundException e) {
@@ -90,19 +84,15 @@ public class TablicaZcsv {
 		}
 	}
 
-	public String[] getTytuly() {
-		return tytuly;
+	public String getTytul() {
+		return tytul;
 	}
-	public ArrayList<ArrayList<String>> getDaneAL() {
+	public ArrayList<String> getDaneAL() {
 		return daneAL;
 	}
 
-	public static String[][] getDane_str() {
+	public static String[] getDane_str() {
 		return dane_str;
-	}
-
-	public int getWiersz() {
-		return wiersz;
 	}
 
 	// public String[] getDane_str() {

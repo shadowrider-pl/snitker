@@ -2,6 +2,9 @@ package Tabele;
 
 public class AnalizaDanych {
 	
-	TablicaZcsv tabela = new TablicaZcsv();
+	Tablica1KolZcsv tabela = new Tablica1KolZcsv();
+	
+//	String tytul=tabela.dane[0];
+	
 	
 }

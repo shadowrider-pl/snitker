@@ -16,7 +16,7 @@ import static java.lang.Math.*;
 
 public class Histogram extends javax.swing.JFrame {
 
-	private double dominanta = PierwszeFunkcje.getDominanta();
+	private double dominanta = PierwszeFunkcje.getDominanta()[0];
 	private double minimum = PierwszeFunkcje.getMinimum();
 	private double maximum = PierwszeFunkcje.getMaximum();
 	private int liczba_obserwacji = PierwszeFunkcje.getLiczba_obserwacji();
@@ -25,10 +25,11 @@ public class Histogram extends javax.swing.JFrame {
 	private double zakres = maximum - minimum;
 	// private double szer_przedz = zakres / l_przedzialow;
 	private int przedzialy[] = new int[(int) zakres];
-	 private double wartosc_dominanty = 0;
+	private double wartosc_dominanty = 0;
 	// private ArrayList<Rectangle2D> arrHist = new
 	// ArrayList<Rectangle2D>();
-	
+
+	JFrame frame = new Rysuj();
 
 	public Histogram() {
 		initComponents();
@@ -49,22 +50,17 @@ public class Histogram extends javax.swing.JFrame {
 				}
 			}
 		}
-		
-		// dominanta przedziałowa
-				for (int i = 0; i < przedzialy.length; i++) {
-					if (wartosc_dominanty < przedzialy[i]) {
-						wartosc_dominanty = przedzialy[i];
-					}
-				}
 
-		JFrame frame = new Rysuj();
+		// dominanta przedziałowa
+		for (int i = 0; i < przedzialy.length; i++) {
+			if (wartosc_dominanty < przedzialy[i]) {
+				wartosc_dominanty = przedzialy[i];
+			}
+		}
+
 		frame.setTitle("Histogram");
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frame.setVisible(true);
-
-		for (int lll : przedzialy) {
-			System.out.println(lll);
-		}
+		frame.setVisible(false);
 	}
 
 	public static void main(String[] args) {
@@ -80,7 +76,7 @@ public class Histogram extends javax.swing.JFrame {
 		public Rysuj() {
 			add(new HistogramComponent());
 			pack();
-			setBounds(200, 200, 1100, 386);
+			setBounds(300, 300, 1100, 386);
 		}
 	}
 
@@ -135,19 +131,19 @@ public class Histogram extends javax.swing.JFrame {
 
 			for (int i = 1; i <= 4; i++) {
 				g2.draw(new Line2D.Double(xOsiy - 10, (topY + j * height), xOsiy + 10, (topY + j * height)));
-				g2.drawString(Double.toString(zaokr.zaokraglij((wartosc_dominanty * (4 - i) / 4))), (int) round(xOsiy - 45),
-						(int) (topY + j * height));
+				g2.drawString(Double.toString(zaokr.zaokraglij((wartosc_dominanty * (4 - i) / 4))),
+						(int) round(xOsiy - 45), (int) (topY + j * height));
 				j = j + 0.25;
 			}
 
 			// Oś X
 			g2.draw(new Line2D.Double(leftX, height + 40, leftX + width, height + 40));
-			g2.drawString(
-					"Liczba minimum:" + minimum + ", maximum: " + maximum + ", liczba_obserwacji: " + liczba_obserwacji
-							+ ", dominanta: " + dominanta + ", tablica.length: " + tablica.length + ", ",
-					(int) leftX, (int) (height + 100));
-			g2.drawString("przedzialy.length: " + przedzialy.length + ", pY: " + pY, (int) leftX,
-					(int) (height + 100 + 30));
+//			g2.drawString(
+//					"Liczba minimum:" + minimum + ", maximum: " + maximum + ", liczba_obserwacji: " + liczba_obserwacji
+//							+ ", dominanta: " + dominanta + ", tablica.length: " + tablica.length + ", ",
+//					(int) leftX, (int) (height + 100));
+//			g2.drawString("przedzialy.length: " + przedzialy.length + ", pY: " + pY, (int) leftX,
+//					(int) (height + 100 + 30));
 
 		}
 

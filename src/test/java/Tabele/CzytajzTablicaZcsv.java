@@ -22,7 +22,7 @@ public class CzytajzTablicaZcsv {
 		// obj.run();
 		// tab_str=obj.getCountry();
 
-		TablicaZcsv tabelazcsv = new TablicaZcsv();
+		Tablica1KolZcsv tabelazcsv = new Tablica1KolZcsv();
 		tabelazcsv.czytaj();
 		tab_str = tabelazcsv.getDane_str();
 
