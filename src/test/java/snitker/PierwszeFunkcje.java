@@ -36,6 +36,7 @@ public class PierwszeFunkcje {
 	public static double tablica[];
 	public static String[] tytul;
 	public int iloscKolumn;
+	public static double [][] pelnaTabela;
 
 	public static ArrayList<HistogramPrzedzialowy> histpAL = new ArrayList<HistogramPrzedzialowy>();
 	public HistogramPrzedzialowy histp;
@@ -51,28 +52,29 @@ public class PierwszeFunkcje {
 		// liczba_obserwacji=tabela.dane.length;
 		liczba_obserwacji = tabela.getWiersz();
 		iloscKolumn = tabela.iloscKolumn;
+		pelnaTabela=tabela.dane;
 		wynik1 += "<table border='1' CELLPADDING='8'><tr>";
 		for (int i = 0; i < iloscKolumn; i++) {
 			dominanta_str = "";
 			
 			Srednia obj_srednia = new Srednia();
-			srednia = obj_srednia.wyliczona_srednia(tabela.dane, i);
+			srednia = obj_srednia.wyliczona_srednia(pelnaTabela, i);
 
 			ZaokrDo2Miejsc obj_zaokraglony = new ZaokrDo2Miejsc();
 			srednia_zaokraglona = obj_zaokraglony.zaokraglij(srednia);
 
 			Wariancja obj_wariancja = new Wariancja();
-			wariancja = obj_zaokraglony.zaokraglij(obj_wariancja.wariancja(srednia, tabela.dane, i));
+			wariancja = obj_zaokraglony.zaokraglij(obj_wariancja.wariancja(srednia, pelnaTabela, i));
 
 			OdchylenieStandardowe obj_odchylenie = new OdchylenieStandardowe();
 			odchylenie_standardowe = obj_zaokraglony
-					.zaokraglij(obj_odchylenie.wylicz_odchylenie(srednia, tabela.dane, i));
+					.zaokraglij(obj_odchylenie.wylicz_odchylenie(srednia, pelnaTabela, i));
 
 			Mediana obj_mediana = new Mediana();
-			mediana = obj_mediana.mediana(tabela.dane, i);
+			mediana = obj_mediana.mediana(pelnaTabela, i);
 
 			Dominanta obj_dominanta = new Dominanta();
-			dominanta = obj_dominanta.dominanta(tabela.dane, i);
+			dominanta = obj_dominanta.dominanta(pelnaTabela, i);
 				for(double ds:dominanta){
 					dominanta_str+=ds+"; ";
 				}
@@ -86,7 +88,7 @@ public class PierwszeFunkcje {
 			tytul = tabela.getTytuly();
 
 			Kurtoza obj_kurtoza = new Kurtoza();
-			kurtoza = obj_zaokraglony.zaokraglij(obj_kurtoza.kurtoza(srednia, wariancja, tabela.dane, i));
+			kurtoza = obj_zaokraglony.zaokraglij(obj_kurtoza.kurtoza(srednia, wariancja, pelnaTabela, i));
 
 			wynik1 = wynik1 + "<td><h3><u>" + tytul[i] + "</u></h3>Średnia:&nbsp;" + srednia_zaokraglona + "<BR>"
 					+ "Wariancja:&nbsp;" + wariancja + "<BR>" + "Odchylenie&nbsp;standardowe:&nbsp;"
@@ -102,6 +104,10 @@ public class PierwszeFunkcje {
 			histpAL.add(histp);
 		}
 		wynik1 += "</tr></table></html>";
+	}
+
+	public static double[][] getPelnaTabela() {
+		return pelnaTabela;
 	}
 
 	public static double getMediana() {
