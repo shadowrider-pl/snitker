@@ -7,6 +7,9 @@ package Okna;
 
 import Funkcje.TestSeriiM1;
 import Funkcje.TestSeriiM2;
+import Funkcje.TestSumyRang;
+import Funkcje.TestZnakowRangowanych;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -20,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout;
 
 import snitker.PierwszeFunkcje;
 
@@ -266,7 +270,7 @@ public class WynikiOpisowe extends javax.swing.JFrame {
         przyciskTestRangZnakow.setText("Test rangowanych znaków");
         przyciskTestRangZnakow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                przyciskTestRangZnakowActionPerformed(evt);
+                przyciskTestRangZnakowActionPerformed(evt, tabela);
             }
         });
 
@@ -274,7 +278,7 @@ public class WynikiOpisowe extends javax.swing.JFrame {
         przyciskTestSumyRang.setText("Test sumy rang");
         przyciskTestSumyRang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                przyciskTestSumyRangActionPerformed(evt);
+                przyciskTestSumyRangActionPerformed(evt, tabela);
             }
         });
 
@@ -318,12 +322,12 @@ public class WynikiOpisowe extends javax.swing.JFrame {
 
     }
 
-    void przyciskTestRangZnakowActionPerformed(java.awt.event.ActionEvent evt) {
-
+    void przyciskTestRangZnakowActionPerformed(java.awt.event.ActionEvent evt, double[][] tabela) {
+    	TestZnakowRangowanych tzr= new TestZnakowRangowanych(tabela);
     }
 
-    void przyciskTestSumyRangActionPerformed(java.awt.event.ActionEvent evt) {
-
+    void przyciskTestSumyRangActionPerformed(java.awt.event.ActionEvent evt, double[][] tabela) {
+    	TestSumyRang tsr= new TestSumyRang(tabela);
     }
 
     void przyciskTestChiKwActionPerformed(java.awt.event.ActionEvent evt) {

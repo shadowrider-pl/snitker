@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class TestZnakowRangowanychTest {
+public class TestSumyRangTest {
 
 	public static double[][] dane;
 	public static ArrayList<ArrayList<String>> daneAL = new ArrayList<ArrayList<String>>();
@@ -26,25 +26,25 @@ public class TestZnakowRangowanychTest {
 	public static int iloscKolumn;
 	public static String[] tytuly;
 	public static String[] daneWiersz;
-	private static ArrayList<String> wierszTemp;
-	private static ArrayList<String> wierszTemp2;
-	private static ArrayList<String> wierszTemp3;
+	private static ArrayList<Double> wierszTemp;
+	private static ArrayList<Double> wierszTemp2;
+	private static ArrayList<Double> wierszTemp3;
 
-	private static ArrayList<Double> ciagR = new ArrayList<Double>();
+	private static ArrayList<Double> ciagR;
 	static int lPlus = 0;
 	static int lMinus = 0;
 	static int lWynik = 0;
 
-	private static ArrayList<ArrayList<String>> ciagV = new ArrayList<ArrayList<String>>();
+	private static ArrayList<ArrayList<Double>> ciagV = new ArrayList<ArrayList<Double>>();
 	private static String wartCiaguR;
 	private static String znak;
-	private static ArrayList<Integer> duplikatyArr;
-	private static String duplikat;
-	private static String ranga;
-	private static Integer licznikSredniej = 0;
-	private static Double sredniaRanga = 0.0;
-	private static Double statZ = 0.0;
-	private static Integer n = 0;
+	private static ArrayList<Double> duplikatyArr = new ArrayList<Double>();
+	private static double duplikat;
+	private static double ranga = 0.0;
+	private static double licznikSredniej = 0.0;
+	private static double sredniaRanga = 0.0;
+	private static double statZ = 0.0;
+	private static int n = 0;
 	final static double alfapol = 1.96;
 	private static String wynik_testu;
 
@@ -53,116 +53,112 @@ public class TestZnakowRangowanychTest {
 
 		n = dane.length;
 
-		for (int i = 1; i < n; i++) {
-			double r = dane[i][0] - dane[i][1];
-			ciagR.add(r);
+		for (int k = 0; k < 2; k++) {
+			for (int i = 1; i < n; i++) {
+				// double r = dane[i][0] - dane[i][1];
+				ranga = ranga + 1.0;
+				ciagR = new ArrayList<Double>();
+				ciagR.add(dane[i][k]);
+				ciagR.add((double) k);
+				// ciagR.add(ranga);
+				ciagV.add(ciagR);
+				System.out.println("ranga:" + ranga);
+			}
 		}
 
-		n = n - 1; // dalsze tablice nie mają nagłówka
+		n = ciagV.size();
 
 		System.out.println("-----------------------");
 		System.out.println("n=" + n);
-		for (int i = 0; i < n; i++) {
-			wierszTemp = new ArrayList<String>();
-			// System.out.println(ciagR.get(i));
-			if (ciagR.get(i) > 0.0) {
-				znak = "+";
-			} else if (ciagR.get(i) < 0.0) {
-				znak = "-";
-			}
-			wartCiaguR = Double.toString(Math.abs(ciagR.get(i)));
-			wierszTemp.add(wartCiaguR);
-			wierszTemp.add(znak);
-			wierszTemp.add(Integer.toString(i));
-			ciagV.add(wierszTemp);
-//			System.out.println("ciagR: " + ciagR.get(i));
-//			System.out.println("wierszTemp: " + wierszTemp.get(0));
-		}
 
-		// wierszTemp.clear();
-
-		// sortowanie
-
-		// Collections.sort(ciagV, new Comparator<ArrayList<String>>() {
-		// public int compare(ArrayList<String> o1, ArrayList<String> o2) {
-		// return o1.get(0).compareTo(o2.get(0));
-		// }
-		// });
-
-		Collections.sort(ciagV, new Comparator<ArrayList<String>>() {
-			public int compare(ArrayList<String> o1, ArrayList<String> o2) {
+		Collections.sort(ciagV, new Comparator<ArrayList<Double>>() {
+			public int compare(ArrayList<Double> o1, ArrayList<Double> o2) {
 				return o1.get(0).compareTo(o2.get(0));
 			}
 		});
 
-		// wierszTemp.clear();
 		// rangowanie
 		for (int i = 0; i < n; i++) {
-			wierszTemp = new ArrayList<String>();
+			wierszTemp = new ArrayList<Double>();
 			wierszTemp = ciagV.get(i);
-			wierszTemp.set(2, Integer.toString(i + 1));
-			ciagV.set(i, wierszTemp);
+			wierszTemp.add((double) i);
 		}
 
 		// System.out.println("po wstępnym rangowaniu");
 
 		for (int i = 0; i < n; i++) {
 			if (i > 0) {
-				wierszTemp = new ArrayList<String>();
+				wierszTemp = new ArrayList<Double>();
 				wierszTemp = ciagV.get(i - 1);
-				duplikat = wierszTemp.get(2);
+				duplikat = wierszTemp.get(0);
+				System.out.println("duplikat:" + duplikat);
 			} else {
-				duplikat = null;
+				// duplikat = null;
 			}
-			wierszTemp2 = new ArrayList<String>();
+			wierszTemp2 = new ArrayList<Double>();
 			wierszTemp2 = ciagV.get(i);
+			System.out.println("wierszTemp2-0: " + wierszTemp2.get(0) + ", wierszTemp2-1: " + wierszTemp2.get(1)
+					+ ", wierszTemp2-2: " + wierszTemp2.get(2));
 			ranga = wierszTemp2.get(2);
-			if (duplikat != null && ranga.equals(duplikat)) {
-				duplikatyArr.add(Integer.parseInt(duplikat));
-//				System.out.println("duplikat: " + duplikat + ", i:" + i + ", ranga:" + ranga);
-			} else if (duplikatyArr != null && duplikatyArr.size() > 0) {
+			if (wierszTemp2.get(0).equals(duplikat)) {
+				duplikatyArr.add(ranga);
+				System.out.println("duplikat: " + duplikat + ", i:" + i + ", ranga:" + ranga);
+			} else if (duplikatyArr.size() > 0) {
 				for (int j = 0; j < duplikatyArr.size(); j++) {
 					licznikSredniej = licznikSredniej + duplikatyArr.get(j);
 				}
-				sredniaRanga = (double) (licznikSredniej / duplikatyArr.size());
-				for (int sr = duplikatyArr.get(0); sr < duplikatyArr.size(); sr++) {
-					wierszTemp3 = ciagV.get(sr);
-					wierszTemp3.set(2, Double.toString(sredniaRanga));
-					ciagV.set(sr, wierszTemp3);
+				sredniaRanga = ((double) licznikSredniej / (double) duplikatyArr.size());
+				System.out.println("sredniaRanga:" + sredniaRanga + "licznikSredniej:" + licznikSredniej
+						+ "duplikatyArr.size():" + duplikatyArr.size() + " duplikatyArr.get(0).intValue():"
+						+ duplikatyArr.get(0).intValue());
+
+				for (int sr = 0; sr < duplikatyArr.size(); sr++) {
+					wierszTemp3 = new ArrayList<Double>();
+					wierszTemp3 = ciagV.get(duplikatyArr.get(sr).intValue());
+					wierszTemp3.set(2, sredniaRanga);
+					ciagV.set(duplikatyArr.get(sr).intValue(), wierszTemp3);
+
+					System.out.println("wierszTemp3-0: " + wierszTemp3.get(0) + ", wierszTemp3-1: " + wierszTemp3.get(1)
+							+ ", wierszTemp3-2: " + wierszTemp3.get(2));
 				}
-				// duplikatyArr.clear();
-				// wierszTemp.clear();
-				// wierszTemp2.clear();
-				// wierszTemp3.clear();
+				sredniaRanga = 0;
+				licznikSredniej = 0;
+				duplikatyArr.clear();
 			}
 
 			// System.out.println(i);
 			// System.out.println("------------------------");
 		}
 
+		double tA = 0.0;
+		double tB = 0.0;
+
 		for (int i = 0; i < n; i++) {
-			wierszTemp = new ArrayList<String>();
+			wierszTemp = new ArrayList<Double>();
 			wierszTemp = ciagV.get(i);
-			if (wierszTemp.get(1).equals("+"))
-				lPlus++;
-			if (wierszTemp.get(1).equals("-"))
-				lMinus++;
+			if (wierszTemp.get(1).equals(0.0))
+				tA = tA + wierszTemp.get(2);
+			if (wierszTemp.get(1).equals(1.0))
+				tB = tB + wierszTemp.get(2);
 		}
 
-		if (lPlus < lMinus) {
-			lWynik = lPlus;
+		double tWynik;
+		if (tA < tB) {
+			tWynik = tA;
 		} else {
-			lWynik = lMinus;
+			tWynik = tB;
 		}
 
-		statZ = (lWynik - ((n * (n + 1)) / 4)) / Math.sqrt(((n * (n + 1) * (2 * n + 1)) / 24));
+		int mi = (n * (2 * n + 1)) / 2;
+		double sigma = Math.sqrt((n * n * (2 * n + 1)) / 12);
+		statZ = (tWynik - mi) / sigma;
 
-		System.out.println("statZ: " + statZ + ", alfapol: " + alfapol + ", lPlus: " + lPlus + ", lMinus: " + lMinus
-				+ ", lWynik: " + lWynik);
+		System.out.println(
+				"statZ: " + statZ + ", alfapol: " + alfapol + ", tA: " + tA + ", tB: " + tB + ", tWynik: " + tWynik);
 		if (Math.abs(statZ) >= alfapol) {
-			wynik_testu = "Należy odrzucić hipotezę H0, że próba jest losowa";
+			wynik_testu = "Należy odrzucić hipotezę H0, że dane populacje się różnią";
 		} else {
-			wynik_testu = "Brak podstaw do odrzucenia hipotezy H0, że próba jest losowa";
+			wynik_testu = "Brak podstaw do odrzucenia hipotezy H0, że dane populacje się różnią";
 		}
 		System.out.println(wynik_testu);
 	}
