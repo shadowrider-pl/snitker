@@ -11,8 +11,10 @@ public class TestSeriiM1 {
     private double srednia;
     private double wariancja;
     private ArrayList<String> ciagS = new ArrayList<String>();
-    private int n1 = 0;
-    private int n2 = 0;
+    private int intn1 = 0;
+    private int intn2 = 0;
+    private double n1;
+    private double n2;
     private int k = 0;
     private String aktualnaSeria = "";
     final double alfapol = 1.96;
@@ -37,9 +39,9 @@ public class TestSeriiM1 {
 //		          System.out.println("tablica.length:"+tablica.length);
         for (int i = 0; i < ciagS.size(); i++) {
             if (ciagS.get(i) == "m") {
-                n1++;
+            	intn1++;
             } else if (ciagS.get(i) == "w") {
-                n2++;
+            	intn2++;
             }
 
             if (aktualnaSeria != ciagS.get(i)) {
@@ -47,10 +49,14 @@ public class TestSeriiM1 {
                 aktualnaSeria = ciagS.get(i);
             }
         }
+        
+        n1=(double) intn1;
+        n2=(double) intn2;
 
         srednia = (2 * n1 * n2) / (n1 + n2) + 1;
-        wariancja = ((2 * n1 * n2) * (2 * n1 * n2 - (n1 + n2)) / ((n1 + n2 - 1) * (n1 + n2) ^ 2));
-//                System.out.println("srednia: "+srednia+", wariancja: "+wariancja);
+        wariancja = ((2 * n1 * n2) * (2 * n1 * n2 - (n1 + n2)) / ((n1 + n2 - 1) * Math.pow((n1 + n2), 2)));
+//               System.out.println("srednia: "+srednia+", wariancja: "+wariancja
+//            		   +", n1: "+n1+", n2: "+n2+", k: "+k);
         statZ = (k - srednia) / wariancja;
         
         if(Math.abs(statZ)>=alfapol){

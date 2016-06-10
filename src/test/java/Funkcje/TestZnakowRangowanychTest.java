@@ -36,17 +36,26 @@ public class TestZnakowRangowanychTest {
 	static int lWynik = 0;
 
 	private static ArrayList<ArrayList<String>> ciagV = new ArrayList<ArrayList<String>>();
+	private static ArrayList<ArrayList<Double>> ciagV2 = new ArrayList<ArrayList<Double>>();
+	private static ArrayList<ArrayList<String>> ciagV3 = new ArrayList<ArrayList<String>>();
+	private static ArrayList<ArrayList<String>> ciagV4 = new ArrayList<ArrayList<String>>();
+	private static double wartCiaguV2;
 	private static String wartCiaguR;
 	private static String znak;
-	private static ArrayList<Integer> duplikatyArr;
+	private static ArrayList<Double> duplikatyArr = new ArrayList<Double>();
 	private static String duplikat;
-	private static String ranga;
-	private static Integer licznikSredniej = 0;
+	private static String obecny;
+	private static double ranga;
+	private static double pierwszaRanga;
+	private static double kolejnaRanga;
+	private static double licznikSredniej = 0.0;
 	private static Double sredniaRanga = 0.0;
 	private static Double statZ = 0.0;
 	private static Integer n = 0;
 	final static double alfapol = 1.96;
 	private static String wynik_testu;
+	private static double liczba;
+	private static double rangaD;
 
 	public static void main(String[] args) {
 		czytaj();
@@ -73,63 +82,141 @@ public class TestZnakowRangowanychTest {
 			wartCiaguR = Double.toString(Math.abs(ciagR.get(i)));
 			wierszTemp.add(wartCiaguR);
 			wierszTemp.add(znak);
-			wierszTemp.add(Integer.toString(i));
+			wierszTemp.add(Integer.toString(i + 1));
 			ciagV.add(wierszTemp);
-//			System.out.println("ciagR: " + ciagR.get(i));
-//			System.out.println("wierszTemp: " + wierszTemp.get(0));
+			// System.out.println("ciagR: " + ciagR.get(i));
+			// System.out.println("wierszTemp: " + wierszTemp.get(0));
+		}
+
+		// zamiana na double żeby przesortować liczby a nie łańcuchy
+		for (int i = 0; i < n; i++) {
+			ArrayList<Double> wierszTempD = new ArrayList<Double>();
+			wierszTemp = new ArrayList<String>();
+			wierszTemp = (ciagV.get(i));
+			liczba = Double.parseDouble(wierszTemp.get(0));
+			rangaD = Double.parseDouble(wierszTemp.get(2));
+			wierszTempD.add(liczba);
+			wierszTempD.add(rangaD);
+			ciagV2.add(wierszTempD);
 		}
 
 		// wierszTemp.clear();
 
 		// sortowanie
 
-		// Collections.sort(ciagV, new Comparator<ArrayList<String>>() {
-		// public int compare(ArrayList<String> o1, ArrayList<String> o2) {
-		// return o1.get(0).compareTo(o2.get(0));
-		// }
-		// });
-
-		Collections.sort(ciagV, new Comparator<ArrayList<String>>() {
-			public int compare(ArrayList<String> o1, ArrayList<String> o2) {
+		Collections.sort(ciagV2, new Comparator<ArrayList<Double>>() {
+			public int compare(ArrayList<Double> o1, ArrayList<Double> o2) {
 				return o1.get(0).compareTo(o2.get(0));
 			}
 		});
 
-		// wierszTemp.clear();
-		// rangowanie
+		// zamiana z powrotem na string
 		for (int i = 0; i < n; i++) {
+			ArrayList<Double> wierszTempD = new ArrayList<Double>();
+			wierszTempD = ciagV2.get(i);
+			wartCiaguV2 = wierszTempD.get(0);
+			rangaD = wierszTempD.get(1);
 			wierszTemp = new ArrayList<String>();
-			wierszTemp = ciagV.get(i);
-			wierszTemp.set(2, Integer.toString(i + 1));
-			ciagV.set(i, wierszTemp);
+			wierszTemp.add(Double.toString(wartCiaguV2));
+			wierszTemp.add(Double.toString(rangaD));
+			ciagV3.add(wierszTemp);
 		}
 
+		// test
+		// String a="107";
+		// double b=107;
+		// System.out.println("a:"+a+", b:"+b);
+		// if(a.equals(b)){ System.out.println("OK");
+		// }else{
+		// System.out.println("nie OK");
+		// }
+		// System.out.println("====");
+		//// double c=Double.valueOf(a);
+		// double c=new Double(a).doubleValue();
+		// System.out.println("c:"+c);
+		//// if(b.equals(c)){ System.out.println("OK2");
+		// if(b==c){ System.out.println("OK2");
+		// }else{
+		// System.out.println("nie OK2");
+		// }
+
+		// dodawanie znaku do V3
+		for (int i = 0; i < n; i++) {
+			wierszTemp = new ArrayList<String>();
+			wierszTemp = ciagV3.get(i);
+			for (int j = 0; j < n; j++) {
+				wierszTemp2 = new ArrayList<String>();
+				wierszTemp2 = ciagV.get(j);
+				// System.out.println("wierszTemp2.get(2):"+Double.parseDouble(wierszTemp2.get(2))+",
+				// wierszTemp.get(1):"+wierszTemp.get(1));
+
+				if (Double.parseDouble(wierszTemp.get(1)) == (Double.parseDouble(wierszTemp2.get(2)))) {
+					wierszTemp.add(wierszTemp2.get(1));
+					ciagV4.add(wierszTemp);
+					System.out.println("====");
+					break;
+				}
+				// else{
+				// System.out.println("dupa");
+				// }
+
+			}
+		}
+
+		// wierszTemp.clear();
+		// rangowanie
+		for (int i = 0; i < ciagV4.size(); i++) {
+			wierszTemp = new ArrayList<String>();
+			wierszTemp = ciagV4.get(i);
+			wierszTemp.set(1, Integer.toString(i + 1));
+			ciagV4.set(i, wierszTemp);
+		}
+
+		for (ArrayList<String> x : ciagV4) {
+			wierszTemp = new ArrayList<String>();
+			wierszTemp = x;
+			System.out.println("wierszTemp.get(0):" + wierszTemp.get(0) + "wierszTemp.get(1):" + wierszTemp.get(1)
+					+ "wierszTemp.get(2):" + wierszTemp.get(2));
+		}
 		// System.out.println("po wstępnym rangowaniu");
 
-		for (int i = 0; i < n; i++) {
-			if (i > 0) {
-				wierszTemp = new ArrayList<String>();
-				wierszTemp = ciagV.get(i - 1);
-				duplikat = wierszTemp.get(2);
+		for (int i = 0; i < ciagV4.size(); i++) {
+
+			wierszTemp = new ArrayList<String>();
+			wierszTemp = ciagV4.get(i);
+			obecny = wierszTemp.get(0);
+			ranga = Double.parseDouble(wierszTemp.get(1));
+			if (i < ciagV4.size() - 1) {
+				wierszTemp2 = new ArrayList<String>();
+				wierszTemp2 = ciagV4.get(i + 1);
+				duplikat = wierszTemp2.get(0);
+				System.out.println("duplikat: " + duplikat + ", i:" + i + ", ranga:" + ranga);
 			} else {
-				duplikat = null;
+				duplikat = "koniec";
 			}
-			wierszTemp2 = new ArrayList<String>();
-			wierszTemp2 = ciagV.get(i);
-			ranga = wierszTemp2.get(2);
-			if (duplikat != null && ranga.equals(duplikat)) {
-				duplikatyArr.add(Integer.parseInt(duplikat));
-//				System.out.println("duplikat: " + duplikat + ", i:" + i + ", ranga:" + ranga);
-			} else if (duplikatyArr != null && duplikatyArr.size() > 0) {
+
+			if (obecny.equals(duplikat)) {
+
+				duplikatyArr.add(ranga);
+
+			} else if ((duplikat == "koniec" || !obecny.equals(duplikat)) && duplikatyArr.size() > 0) {
+				
+				duplikatyArr.add(ranga);
+				
 				for (int j = 0; j < duplikatyArr.size(); j++) {
-					licznikSredniej = licznikSredniej + duplikatyArr.get(j);
+					kolejnaRanga=duplikatyArr.get(j);
+					licznikSredniej = licznikSredniej + kolejnaRanga;
 				}
-				sredniaRanga = (double) (licznikSredniej / duplikatyArr.size());
-				for (int sr = duplikatyArr.get(0); sr < duplikatyArr.size(); sr++) {
-					wierszTemp3 = ciagV.get(sr);
-					wierszTemp3.set(2, Double.toString(sredniaRanga));
-					ciagV.set(sr, wierszTemp3);
+				
+				sredniaRanga = licznikSredniej / duplikatyArr.size();
+				pierwszaRanga = duplikatyArr.get(0);
+
+				for (int sr = (int) pierwszaRanga; sr < duplikatyArr.size(); sr++) {
+					wierszTemp3 = ciagV4.get(sr);
+					wierszTemp3.set(1, Double.toString(sredniaRanga));
+					ciagV4.set(sr, wierszTemp3);
 				}
+				duplikat="";
 				// duplikatyArr.clear();
 				// wierszTemp.clear();
 				// wierszTemp2.clear();
@@ -140,13 +227,15 @@ public class TestZnakowRangowanychTest {
 			// System.out.println("------------------------");
 		}
 
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < ciagV4.size(); i++) {
 			wierszTemp = new ArrayList<String>();
-			wierszTemp = ciagV.get(i);
-			if (wierszTemp.get(1).equals("+"))
+			wierszTemp = ciagV4.get(i);
+			if (wierszTemp.get(2).equals("+"))
 				lPlus++;
-			if (wierszTemp.get(1).equals("-"))
+			else if (wierszTemp.get(2).equals("-"))
 				lMinus++;
+			else
+				System.out.println("!!!!!!!");
 		}
 
 		if (lPlus < lMinus) {

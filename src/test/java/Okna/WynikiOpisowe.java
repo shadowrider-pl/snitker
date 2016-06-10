@@ -8,6 +8,7 @@ package Okna;
 import Funkcje.TestSeriiM1;
 import Funkcje.TestSeriiM2;
 import Funkcje.TestSumyRang;
+import Funkcje.TestSumyRangMW;
 import Funkcje.TestZnakowRangowanych;
 
 import java.awt.BorderLayout;
@@ -132,7 +133,7 @@ public class WynikiOpisowe extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        setBounds(100, 100, 599, 619);
+        setBounds(100, 100, 599, 650);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -275,10 +276,18 @@ public class WynikiOpisowe extends javax.swing.JFrame {
         });
 
         JButton przyciskTestSumyRang = new JButton();
-        przyciskTestSumyRang.setText("Test sumy rang");
+        przyciskTestSumyRang.setText("Test sumy rang Wilcoxona");
         przyciskTestSumyRang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 przyciskTestSumyRangActionPerformed(evt, tabela);
+            }
+        });
+
+        JButton przyciskTestSumyRangMW = new JButton();
+        przyciskTestSumyRangMW.setText("Test sumy rang Manna-Whitney'a");
+        przyciskTestSumyRangMW.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                przyciskTestSumyRangMWActionPerformed(evt, tabela);
             }
         });
 
@@ -294,6 +303,7 @@ public class WynikiOpisowe extends javax.swing.JFrame {
         testyPanel.add(przyciskTestZnakow);
         testyPanel.add(przyciskTestRangZnakow);
         testyPanel.add(przyciskTestSumyRang);
+        testyPanel.add(przyciskTestSumyRangMW);
         testyPanel.add(przyciskTestChiKw);
         jPanel2.add(testyPanel, BorderLayout.CENTER);
 
@@ -328,6 +338,10 @@ public class WynikiOpisowe extends javax.swing.JFrame {
 
     void przyciskTestSumyRangActionPerformed(java.awt.event.ActionEvent evt, double[][] tabela) {
     	TestSumyRang tsr= new TestSumyRang(tabela);
+    }
+
+    void przyciskTestSumyRangMWActionPerformed(java.awt.event.ActionEvent evt, double[][] tabela) {
+    	TestSumyRangMW tsr= new TestSumyRangMW(tabela);
     }
 
     void przyciskTestChiKwActionPerformed(java.awt.event.ActionEvent evt) {

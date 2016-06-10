@@ -34,7 +34,7 @@ public class MinMax {
 	}
 
 	public int getLiczba_obserwacji() {
-		return liczba_obserwacji;
+		return liczba_obserwacji-1;
 	}
 
 //	public double[] getTablica() {

@@ -10,13 +10,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class TestSumyRangTest {
+public class TestSumyRangMWTest {
 
 	public static double[][] dane;
+	private static String dane_str[][];
 	public static ArrayList<ArrayList<String>> daneAL = new ArrayList<ArrayList<String>>();
 	// Nie może być ArrayList<Double> bo line = br.readLine() czyta Stringi
 	private static int wiersz;
-	private static String dane_str[][];
 	private static String line = "";
 	public static ArrayList<String> tytulAL;
 	private static BufferedReader br = null;
@@ -31,10 +31,6 @@ public class TestSumyRangTest {
 	private static ArrayList<Double> wierszTemp3;
 
 	private static ArrayList<Double> ciagR;
-	static int lPlus = 0;
-	static int lMinus = 0;
-	static int lWynik = 0;
-
 	private static ArrayList<ArrayList<Double>> ciagV = new ArrayList<ArrayList<Double>>();
 	private static ArrayList<ArrayList<Double>> ciagV2 = new ArrayList<ArrayList<Double>>();
 	final static double alfapol = 1.96;
@@ -51,10 +47,10 @@ public class TestSumyRangTest {
 	private static int n = 0;
 	private static double nDouble=0;
 	private static double mi;
+	private static double u;
 	private static double sigma;
 	private static String duplikatStr;
-	private static double tA = 0.0;
-	private static double tB = 0.0;
+	private static double rA = 0.0;
 
 	public static void main(String[] args) {
 		czytaj();
@@ -141,31 +137,24 @@ System.out.println("sredniaRanga"+sredniaRanga+", pierwszaRanga "+pierwszaRanga+
 			wierszTemp = new ArrayList<Double>();
 			wierszTemp = ciagV2.get(i);
 			if (wierszTemp.get(1)==0.0)
-				tA = tA + wierszTemp.get(2);
-			else if (wierszTemp.get(1)==1.0)
-				tB = tB + wierszTemp.get(2);
-			else {
-			}
+				rA = rA + wierszTemp.get(2);
+			
 				System.out.println("!!!"+"wierszTemp.get(1)"+wierszTemp.get(1)+", wierszTemp.get(2)"+ wierszTemp.get(2));
 		}
 
-		double tWynik;
-		if (tA < tB) {
-			tWynik = tA;
-		} else {
-			tWynik = tB;
-		}
-
-		n = n-1;
+		n=n-1;
 		nDouble=(double)n;
-		
-//		System.out.println("tA:"+tA+"tB:"+tB);
-		mi = (nDouble * (2 * nDouble + 1)) / 2;
+		u=nDouble*nDouble+(nDouble*(nDouble+1))/2-rA;
+		mi = nDouble*nDouble / 2;
 		sigma = Math.sqrt((nDouble * nDouble * (2 * nDouble + 1)) / 12);
-		statZ = (tWynik - mi) / sigma;
+		double sigmasrodek=(double)(n * n * (2 * n + 1)) / 12;
+		double sigmasrodekpierw=Math.sqrt(sigmasrodek);
+		statZ = (u - mi) / sigma;
 
 		System.out.println(
-				"statZ: " + statZ + ", alfapol: " + alfapol + ", tA: " + tA + ", tB: " + tB + ", tWynik: " + tWynik);
+				"statZ: " + statZ + ", alfapol: " + alfapol + ", rA: " + rA + ", u: " + u+ ", mi: " 
+		+ mi+ ", sigma: " + sigma+ ", sigmasrodek: " + sigmasrodek+ ", sigmasrodekpierw: " 
+						+ sigmasrodekpierw+ ", n: " + n);
 		if (Math.abs(statZ) >= alfapol) {
 			wynik_testu = "Należy odrzucić hipotezę H0, że dane populacje się różnią";
 		} else {
@@ -232,5 +221,6 @@ System.out.println("sredniaRanga"+sredniaRanga+", pierwszaRanga "+pierwszaRanga+
 			}
 		}
 	}
+
 
 }

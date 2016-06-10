@@ -14,13 +14,16 @@ public class TestSeriiM2 {
     private double wariancja;
     private List<ArrayList<String>> ciagV = new ArrayList<ArrayList<String>>();
 
-    private int n1 = 0;
-    private int n2 = 0;
+    private int intn1 = 0;
+    private int intn2 = 0;
+    private double n1;
+    private double n2;
     private int k = 0;
     final double alfapol = 1.96;
     double statZ;
     private String opis;
     private String wynik_testu;
+    private String aktualnaSeria = "";
 
     public TestSeriiM2(double[][] tablica) {
 
@@ -47,18 +50,24 @@ public class TestSeriiM2 {
             wiersz=ciagV.get(i);
             
             if (wiersz.get(1).equals("0")) {
-                n1++;
+            	intn1++;
             } else if (wiersz.get(1).equals("1")) {
-                n2++;
+            	intn2++;
+            }
+          
+            if (!wiersz.get(1).equals(aktualnaSeria)) {
+                k++;
+                aktualnaSeria = wiersz.get(1);
             }
         }
-        
-        k=n1+n2;
+
+        n1=(double) intn1;
+        n2=(double) intn2;
         System.out.println("k="+k);
-        
         srednia = (2 * n1 * n2) / (n1 + n2) + 1;
-        wariancja = ((2 * n1 * n2) * (2 * n1 * n2 - (n1 + n2)) / ((n1 + n2 - 1) * (n1 + n2) ^ 2));
-//                System.out.println("srednia: "+srednia+", wariancja: "+wariancja);
+        wariancja = (2 * n1 * n2)*((2 * n1 * n2) - (n1 + n2)) / ((n1 + n2 - 1) * Math.pow((n1 + n2), 2));
+    
+        
         statZ = (k - srednia) / wariancja;
 
         if (Math.abs(statZ) >= alfapol) {
